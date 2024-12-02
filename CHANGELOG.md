@@ -1,12 +1,30 @@
+## 1.4.2
+
+- Just update the document
+
+## 1.4.1
+
+- Provide more expanded*
+
+## 1.3.9
+
+- Provide the function for container to have key
+
+## 1.3.8
+
+- also let the container have expanded feature
+
+## 1.3.7
+
+- add the p,to generate the EdgeInsetsGeometry
+
 ## 1.3.6
 
 - fix the bug which cannot load the rounded image
 
-
 ## 1.3.5
 
 - let the image loader support loading base64 picture
-
 
 ## 1.3.4
 

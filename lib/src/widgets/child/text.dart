@@ -6,11 +6,8 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 import 'package:flutter_tailwind/src/utils/list_ext.dart';
 
 part 'text.g.dart';
-
 part 'text_rich.g.dart';
-
 part 'text_stroke.g.dart';
-
 part 'text_style.g.dart';
 
 /// Barry
@@ -26,6 +23,7 @@ mixin CompletedTextStyleBuilder {
 ///# eg:
 ///- 'Hello-world'.text.dashed.lightGreen.f30.bold.lineThrough.mk
 ///- text('Hello-world').dashed.lightGreen.f30.bold.lineThrough.mk
+///![](https://github.com/fastcode555/flutter_tailwind/blob/master/images/text_image.png?raw=true)
 TextBuilder text(String? value) => TextBuilder._(value ?? '');
 
 ///[Text.rich]
@@ -38,6 +36,7 @@ extension TextBuilderStringExt on String? {
   ///# eg:
   ///- 'Hello-world'.text.dashed.lightGreen.f30.bold.lineThrough.mk
   ///- text('Hello-world').dashed.lightGreen.f30.bold.lineThrough.mk
+  ///![](https://github.com/fastcode555/flutter_tailwind/blob/master/images/text_image.png?raw=true)
   TextBuilder get text => TextBuilder._(this ?? '');
 
   StrokeTextBuilder get strokeText => StrokeTextBuilder._(this ?? '');
@@ -59,7 +58,7 @@ class TextBuilder extends MkBuilder<Widget>
         TextBaselineBuilder,
         PaddingBuilder,
         TextColorBuilder,
-        _ExpandedMixin,
+        ExpandedBuilder,
         OpacityBuilder {
   final String? value;
 
@@ -144,12 +143,7 @@ class TextBuilder extends MkBuilder<Widget>
         maxLines: innerMaxLines,
       );
     }
-
     child = createPadding(child);
-
-    if (_expanded) {
-      child = Expanded(child: child);
-    }
-    return child;
+    return createExpanded(child);
   }
 }

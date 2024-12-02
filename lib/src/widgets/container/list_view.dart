@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
-import 'package:flutter_tailwind/src/base/axis_builder.dart';
-import 'package:flutter_tailwind/src/base/spacing_builder.dart';
 
 part 'list_view.g.dart';
 
@@ -12,7 +10,15 @@ part 'list_view.g.dart';
 _ListViewBuilder get listview => _ListViewBuilder._();
 
 class _ListViewBuilder extends ItemBuilder
-    with ScrollFeature, PaddingBuilder, SizeBuilder, SeparatorBuilder, StepMixin, AxisBuilder {
+    with
+        ScrollFeature,
+        PaddingBuilder,
+        SizeBuilder,
+        SeparatorBuilder,
+        StepMixin,
+        AxisBuilder,
+        ExpandedBuilder,
+        KeyBuilder {
   bool get _isHorizontal => direction == Axis.horizontal;
 
   ///判断
@@ -46,6 +52,7 @@ class _ListViewBuilder extends ItemBuilder
     Widget? listview;
     if (_hasSeparated) {
       listview = ListView.separated(
+        key: innerKey,
         itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder),
         itemCount: _itemCount(itemCount, stepBuilder),
         padding: finalPadding,
@@ -58,6 +65,7 @@ class _ListViewBuilder extends ItemBuilder
       );
     } else {
       listview = ListView.builder(
+        key: innerKey,
         itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder),
         itemCount: _itemCount(itemCount, stepBuilder),
         padding: finalPadding,
@@ -72,11 +80,7 @@ class _ListViewBuilder extends ItemBuilder
       return SizedBox(width: size ?? width, height: size ?? height, child: listview);
     }
 
-    if (_expanded) {
-      return Expanded(child: listview);
-    }
-
-    return listview;
+    return createExpanded(listview);
   }
 
   @override
@@ -94,10 +98,20 @@ class _ListViewBuilder extends ItemBuilder
 }
 
 /// [GridView.builder]
+///![](https://github.com/fastcode555/flutter_tailwind/blob/master/link_image/image_5.png?raw=true)
 _GridViewBuilder get gridview => _GridViewBuilder._();
 
 class _GridViewBuilder extends ItemBuilder
-    with ScrollFeature, PaddingBuilder, GridViewFeature, AspectRatioBuilder, StepMixin, AxisBuilder, SpacingBuilder {
+    with
+        ScrollFeature,
+        PaddingBuilder,
+        GridViewFeature,
+        AspectRatioBuilder,
+        StepMixin,
+        AxisBuilder,
+        SpacingBuilder,
+        ExpandedBuilder,
+        KeyBuilder {
   _GridViewBuilder._();
 
   @override
@@ -123,10 +137,7 @@ class _GridViewBuilder extends ItemBuilder
       gridView = _buildGridView(itemCount, builder, stepBuilder, _crossAxisCount);
     }
 
-    if (_expanded) {
-      return Expanded(child: gridView);
-    }
-    return gridView;
+    return createExpanded(gridView);
   }
 
   Widget _buildGridView(
@@ -136,6 +147,7 @@ class _GridViewBuilder extends ItemBuilder
     int? crossAxisCount,
   ) {
     return GridView.builder(
+      key: innerKey,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount ?? 2,
         mainAxisSpacing: innerMainAxisSpacing ?? innerSpacing ?? 0.0,
@@ -160,6 +172,7 @@ class _GridViewBuilder extends ItemBuilder
     int? crossAxisCount,
   ) {
     return MasonryGridView.count(
+      key: innerKey,
       crossAxisCount: crossAxisCount ?? 2,
       mainAxisSpacing: innerMainAxisSpacing ?? innerSpacing ?? 0.0,
       crossAxisSpacing: innerCrossAxisSpacing ?? innerSpacing ?? 0.0,

@@ -151,6 +151,7 @@ extension BoxDecorationBuilderExt on _BoxDecorationBuilder {
 ///container.s100.greenAccent.borderBrown.rounded8.border5.child(
 /// child,
 ///)
+///![](https://github.com/fastcode555/flutter_tailwind/blob/master/images/container_image.png?raw=true)
 ContainerBuilder get container => ContainerBuilder();
 
 class ContainerBuilder extends ChildMkBuilder<Widget>
@@ -168,7 +169,9 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
         PaddingBuilder,
         MarginBuilder,
         ImageProviderBuilderMixin,
-        OpacityBuilder {
+        OpacityBuilder,
+        ExpandedBuilder,
+        KeyBuilder {
   BoxBorder? _border;
   BorderSide? _borderLeft;
   BorderSide? _borderRight;
@@ -202,24 +205,28 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
   @override
   Widget get mk {
     if (_useContainer) {
-      return Container(
-        width: width ?? size,
-        height: height ?? size,
-        padding: finalPadding,
-        margin: finalMargin,
-        alignment: alignment,
-        decoration: decoration ??
-            BoxDecoration(
-              color: innerColor.opacity(innerOpacity),
-              shape: shape ?? BoxShape.rectangle,
-              border: _internalBorder,
-              borderRadius: _internalBorderRadius,
-              boxShadow: boxShadow,
-            ),
+      return createExpanded(
+        Container(
+          key: innerKey,
+          width: width ?? size,
+          height: height ?? size,
+          padding: finalPadding,
+          margin: finalMargin,
+          alignment: alignment,
+          decoration: decoration ??
+              BoxDecoration(
+                color: innerColor.opacity(innerOpacity),
+                shape: shape ?? BoxShape.rectangle,
+                border: _internalBorder,
+                borderRadius: _internalBorderRadius,
+                boxShadow: boxShadow,
+              ),
+        ),
       );
     }
 
-    return DecoratedBox(
+    return createExpanded(DecoratedBox(
+      key: innerKey,
       decoration: decoration ??
           BoxDecoration(
             color: innerColor.opacity(innerOpacity),
@@ -228,13 +235,14 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
             borderRadius: _internalBorderRadius,
             boxShadow: boxShadow,
           ),
-    );
+    ));
   }
 
   @override
   Widget child(Widget child) {
     if (_useContainer) {
-      return Container(
+      return createExpanded(Container(
+        key: innerKey,
         width: width ?? size,
         height: height ?? size,
         padding: finalPadding,
@@ -250,10 +258,11 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
               image: _decorImage,
             ),
         child: child,
-      );
+      ));
     }
 
-    return DecoratedBox(
+    return createExpanded(DecoratedBox(
+      key: innerKey,
       decoration: decoration ??
           BoxDecoration(
             color: innerColor.opacity(innerOpacity),
@@ -264,6 +273,6 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
             image: _decorImage,
           ),
       child: child,
-    );
+    ));
   }
 }

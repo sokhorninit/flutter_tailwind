@@ -59,6 +59,14 @@ class _MyHomePageState extends State<MyHomePage> {
           runSpacing: 2.r,
           spacing: 2.r,
           children: [
+            Row(
+              children: [
+                'left part'.text.mk,
+                container.expanded.red.pl16.ml8.child(
+                  'right part'.text.white.mk,
+                ),
+              ],
+            ),
             Switch(value: false, onChanged: _onChanged),
             sizedBox.wFull.child('ShaderMask'.text.red.f30.mk),
             Column(
@@ -80,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
+
             sizedBox.wFull.child(
               'Check Box'.text.red.f30.mk,
             ),
@@ -157,6 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
             checkBox.circle.enableBorder.onChanged(false, _onChanged),
             checkBox.circle.enableBorder.onChanged(true, _onChanged),
             h2,
+
             sizedBox.wFull.child('Radio'.text.red.f30.mk),
             ValueListenableBuilder<int>(
               valueListenable: _notifier,
@@ -214,7 +224,8 @@ class _MyHomePageState extends State<MyHomePage> {
               WidgetSpan(child: R.icDefAvatar.asset.border1.circle.s20.mk),
               const TextSpan(text: ',So Sad'),
             ]),
-            sizedBox.wFull.child('Image'.text.red.f30.mk),
+
+            sizedBox.wFull.child('Image and Icon'.text.red.f30.mk),
             Icons.connected_tv_sharp.icon.redAccent.s100.mk,
             Icons.connected_tv_sharp.icon.redAccent.opacity50.s100.mk,
             R.icAirPlay.svg.black.s100.mk,
@@ -226,8 +237,9 @@ class _MyHomePageState extends State<MyHomePage> {
             R.icDefPlaylist.asset.border5.borderLightGreen.rounded16.s100.mk,
             R.icDefPlaylist.asset.s100.circle.mk,
             R.icDefPlaylist.asset.s100.circle.border2.borderLightGreen.mk,
+
+            sizedBox.wFull.child('Image from URL'.text.red.f30.mk),
             _link.image.s100.mk,
-            image('').s200.mk,
             _link.image.borderPink.border5.s100.mk,
             _link.image.rounded12.s100.mk,
             _link.image.rounded12.opacity50.s100.mk,
@@ -239,6 +251,9 @@ class _MyHomePageState extends State<MyHomePage> {
             _link.image.border5.borderBrown.circle.s100.mk,
             _link.image.border2.borderBrown.circle.s100.mk,
             _link.image.border2.borderBrown.opacity50.circle.s100.mk,
+
+            sizedBox.wFull.child('Image'.text.red.f30.mk),
+            image('').s200.mk,
             'https://gd-hbimg.huaban.com/'.image.border5.borderBrown.s100.mk,
             'https://gd-hbimg.huaban.com/'.image.border5.borderBrown.circle.s100.mk,
             'https://gd-hbimg.huaban.com/'.image.border5.borderBrown.rounded16.s100.mk,
@@ -389,6 +404,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               child: const Text('Text Button'),
             ),
+            sizedBox.wFull.child('Button'.text.red.f30.mk),
             textButton('Text Button').textWhite.redAccent.borderGreen.click(),
             textButton('Text Button').textWhite.redAccent.opacity50.borderGreen.click(),
             textButton('Text Button').yellow.rounded8.borderGreen.click(),

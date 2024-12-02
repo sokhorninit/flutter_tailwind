@@ -65,6 +65,7 @@ class _CircleImage extends StatelessWidget {
     if (_isNetUrl(url)) {
       return CachedNetworkImage(
         imageUrl: url!,
+        key: ValueKey(url!),
         memCacheHeight: _getMemCacheWidth(),
         memCacheWidth: _getMemCacheHeight(),
         fadeOutDuration: fadeOutDuration ?? const Duration(milliseconds: 1000),
@@ -129,6 +130,9 @@ class _CircleImage extends StatelessWidget {
                   boxShadow: boxShadow,
                 )
             : finalErrorBuilder,
+        errorListener: (value) {
+          debugPrint('you are supported to use ImageLoader.init(ImageLoaderConfig) $value');
+        },
       );
     }
 
